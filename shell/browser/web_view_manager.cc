@@ -64,10 +64,13 @@ content::WebContents* WebViewManager::GetGuestByInstanceID(
 
 bool WebViewManager::ForEachGuest(content::WebContents* embedder_web_contents,
                                   const GuestCallback& callback) {
-  for (auto& item : web_contents_embedder_map_)
+  for (auto& item : web_contents_embedder_map_) {
     if (item.second.embedder == embedder_web_contents &&
-        callback.Run(item.second.web_contents))
+        item.second.web_contents) {
+      callback.Run(item.second.web_contents))
       return true;
+    }
+  }
   return false;
 }
 
